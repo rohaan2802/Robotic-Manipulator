@@ -1,27 +1,61 @@
 # Robotic Manipulator (MATLAB)
 
-Robotics coursework: **Peter Corke Robotics Toolbox** workshops, **quintic polynomial** coefficient solve, and an **App Designer** app for FK / IK / pose / singularity / animation.
+Robotics coursework: **Peter Corke Robotics Toolbox** workshops (`SerialLink` / Puma 560), a **quintic polynomial** coefficient solve, and an **App Designer** app for pose, forward/inverse kinematics, DH table, and a simple animation.
 
-[rohaan2802](https://github.com/rohaan2802)
+**Author:** Mohammad Rohaan · **Roll:** 22I-2327 · **GitHub:** [rohaan2802](https://github.com/rohaan2802)
 
 ---
 
 ## Table of contents
 
-1. [Workshops (`Robot_.m`)](#workshops-robot_m)
-2. [Assignment #02 — quintic (`ass1.m`)](#assignment-02--quintic-ass1m)
-3. [Assignment #01 — App Designer](#assignment-01--app-designer)
-4. [How to run](#how-to-run)
-5. [Paths](#paths)
+1. [Problem and context](#problem-and-context)
+2. [Workshops — `Robot_.m`](#workshops--robot_m)
+3. [Workshop 2 — `ws#02.m` and `qz` / `qr`](#workshop-2--ws02m-and-qz--qr)
+4. [Assignment #02 — quintic (`ass1.m`)](#assignment-02--quintic-ass1m)
+5. [Assignment #01 — App Designer](#assignment-01--app-designer)
+6. [Supporting PDFs and media](#supporting-pdfs-and-media)
+7. [How to run](#how-to-run)
+8. [Limitations](#limitations)
+9. [Author](#author)
 
 ---
 
-## Workshops (`Robot_.m`)
+## Problem and context
 
-Active code builds a 2-link **`SerialLink` named `NAO_ROB`**:
+Folder layout on GitHub:
+
+```text
+Assignment #01/     # App Designer + report + pitch deck
+Assignment #02/     # Quintic polynomial (SEC.pdf + ass1.m)
+WORK_SHOPS/         # Toolbox labs, ESP8266 PDFs, pose PDFs
+assignment_app_1.txt  # Text export of the .mlapp
+```
+
+Language (GitHub): MATLAB. Default branch: `main`. This working copy has `ass1.m`, `Robot_.m`, and `assignment_app_1.txt` at the folder root; nested paths above are the canonical tree.
+
+`input_values.m` exists under Assignment #01 but fetched as **empty**.
+
+---
+
+## Workshops — `Robot_.m`
+
+File: `WORK_SHOPS/Robot_.m`.
+
+A DH matrix is defined then left unused:
 
 ```matlab
-L(1) = Link([0 2 0 pi/2 1], 'standard');  % prismatic (last DH flag 1)
+dh = [
+0 0 1 0
+0 0 1 0
+]
+```
+
+Commented experiments: `SerialLink(dh)` / `'name','Nao'` with `plot`/`teach`/`fkine([0.2 0.3])`, and a two-revolute `NAO_ROB` (`[0 2 0 pi/2 0]`, `[0 0 2 0]`).
+
+**Active code** — 2-DOF **prismatic + revolute** arm named `NAO_ROB`:
+
+```matlab
+L(1) = Link([0 2 0 pi/2 1], 'standard');  % last flag 1 = prismatic
 L(2) = Link([0 0 3 0 0], 'standard');     % revolute
 L(1).qlim = [0, 5];
 arm = SerialLink(L, 'name', 'NAO_ROB');
@@ -29,75 +63,190 @@ arm.plot([4, 0.3])
 arm.teach
 ```
 
-Commented blocks show earlier 2-revolute DH, `fkine`, and a `Nao` name variant.  
-`WORK_SHOPS/` also has `ws#02.m`, `qz and qr.txt`, pose 2D/3D PDFs, complete simulation PDF, **ESP8266** tutorial PDFs, toolbox manuals.
+| Link | θ | d | a | α | Joint |
+|------|---|---|---|---|--------|
+| 1 | 0 | 2 | 0 | π/2 | Prismatic, `qlim` [0, 5] |
+| 2 | 0 | 0 | 3 | 0 | Revolute |
 
-Requires **Robotics Toolbox for MATLAB** on the path.
+Plot configuration: prismatic extension **4**, revolute **0.3 rad**. `teach` opens the Toolbox teach pendant. Requires Corke Robotics Toolbox (`Link`, `SerialLink`).
+
+---
+
+## Workshop 2 — `ws#02.m` and `qz` / `qr`
+
+`WORK_SHOPS/ws#02.m` (as fetched):
+
+```matlab
+mdl_puma560
+p560.plot(qz)
+T = transl(0.6, 0.1, 0)
+* rpy2tr(0, 180, 0, 'deg');
+hold on
+trplot(T)
+q = p560.ikine6s(T)
+```
+
+Intended behaviour: load the Toolbox **Puma 560** model, plot the **zero** pose `qz`, build a homogeneous transform at (0.6, 0.1, 0) with RPY (0°, 180°, 0°), draw it with `trplot`, and solve closed-form IK (`ikine6s`).
+
+As stored, `T = transl(...)` is one statement and the next line begins with `* rpy2tr(...)`, which MATLAB will not parse as `T = transl(...) * rpy2tr(...)`. Join those lines before running.
+
+`WORK_SHOPS/qz and qr.txt` (student notes):
+
+| Symbol | Meaning in the note |
+|--------|---------------------|
+| `qz` | Zero / home joint vector, e.g. `[0, 0]` |
+| `qr` | A ready or target configuration, example `[0.2, 0.3]` rad |
+
+Uses described: `fkine(qz)` / `fkine(qr)`, and motion from `qz` to `qr`. For Puma 560, Toolbox `qz` / `qr` are 6-vectors, not 2-link.
 
 ---
 
 ## Assignment #02 — quintic (`ass1.m`)
 
-Solves **A a = b** for a 5th-order polynomial (position, velocity, acceleration at **t0** and **tf**).
+Solves **A a = b** for coefficients of
+
+```text
+q(t) = a5 t^5 + a4 t^4 + a3 t^3 + a2 t^2 + a1 t + a0
+```
+
+Rows of `A` are q, q̇, q̈ at `t0` and at `tf` (Vandermonde-style).
 
 | Symbol | Value in file |
 |--------|----------------|
 | `t0` | 3 |
 | `tf` | 8 |
-| `q1` | 0 |
-| `s1` | `pi/2` |
-| `q2` | `2e-9` |
-| `s2` | `5e-9` |
-| Accel BCs | 0 at both ends (rows 3 and 6 of `b`) |
+| `q1` | 0 (position at t0) |
+| `s1` | π/2 (used in `b` as the **tf position** slot — see `b` below) |
+| `q2` | 2×10⁻⁹ |
+| `s2` | 5×10⁻⁹ |
+| Accelerations | 0 at both ends |
 
-`A` is 6×6 Vandermonde-style with derivative rows. Prints `inv(A)`, coefficient vector `val` (`a5…a0`), then a slightly **mislabeled** dump (`WHEN T=3` prints `a5,a4,a3` as q/v/a — use `val` itself for the report).
+```matlab
+b = [q1; q2; 0; s1; s2; 0];
+```
 
-This is the standard **quintic rest-to-rest** (almost: end position/vel are tiny ε, not exactly the π/2 start vel story — check the assignment PDF `SEC.pdf`).
+Matching `A` rows: q(t0)=`q1`, q̇(t0)=`q2`, q̈(t0)=0, q(tf)=`s1`=π/2, q̇(tf)=`s2`, q̈(tf)=0. Start is nearly rest at 0; end is nearly rest at **π/2**. Script prints `inv(A)` and `val = A_inv * b` (`a5`…`a0`). The `WHEN T=3` / `WHEN T=8` blocks **do not** evaluate motion; they print coefficient triples labelled q/v/a. Use `val` in the report (`SEC.pdf`).
 
 ---
 
 ## Assignment #01 — App Designer
 
-**`assignment_app.mlapp`** — export text `assignment_app_1.txt`.
+**`assignment_app.mlapp`** (export: `assignment_app_1.txt`). Class `assignment_app < matlab.apps.AppBase`. Window title **MATLAB App**, starts maximized. Banner textarea: **Robotic Arm Simulation** (Book Antiqua, cyan on dark).
 
-UI buttons: **Forward Kinematics**, **Inverse Kinematics**, **Transformation Matrix / POSE**, **Animation**, **Exit**, plus text areas and axes.
+### UI (`createComponents`)
 
-Helpers:
+Maximized figure, banner **Robotic Arm Simulation**. Five teal Cooper Black buttons: (1) Transformation Matrix (POSE), (2) Forward Kinematics, (3) Inverse Kinematics, (4) DH Table & Animation, (5) Exit. `TextArea` holds output; `UIAxes2` is the background. Declared but not created: `UIAxes`, `StartAnimationButton`, `RobotAxes`.
 
-- `forwardKinematics(theta1,theta2,theta3)` — 2-link planar **plus z = theta3**, returns 4×4 pose. `L1=L2=1`.  
-- `forwardKinematics_1(jointAngles)` — 3 planar links `L1=L2=L3=1` plus `z = theta4`.  
-- `isSingular(jointAngles)` — loads **`mdl_puma560`**, `p560.jacob0`, singular if `|det(J)| < 1e-6`.
+### Startup
 
-**Hard-coded background:**
+`startupFcn` hides `TextArea`, `imread`s a **hard-coded** path:
 
-`D:\University Data\ALL SEMESTERS\3rd Semester\Robo Tech\Assignments\Assignment #01/R2.jpg`
+```text
+D:\University Data\ALL SEMESTERS\3rd Semester\Robo Tech\Assignments\Assignment #01/R2.jpg
+```
 
-Replace with `fullfile` + local `R2.jpg` or the app will fail on another PC. `startupFcn` sizes `UIAxes2` very large (`[-90 -110 1700 1300]`) for that image.
+`R2.jpg` is also in the Assignment #01 folder on GitHub — change `imread` to a relative `fullfile` or the app errors on another PC. `UIAxes2.Position = [-90 -110 1700 1300]`.
 
-Pitch deck: *Humanoid Robot Pitch Deck by Slidesgo.pptx*; report `NEW_REPORT.pdf`.
+### Helper methods
+
+- **`forwardKinematics(theta1, theta2, theta3, ~)`** — planar 2-link, `L1 = L2 = 1`: `x,y` from standard planar FK, `z = θ3`; returns a 4×4 pose with identity rotation.
+- **`forwardKinematics_1(jointAngles)`** — 3 planar links `L1=L2=L3=1`, `z = theta4`; returns `[x; y; z]` (**unused** by the buttons).
+- **`isSingular(jointAngles)`** — `mdl_puma560`; `p560.jacob0`; singular if `|det(J)| < 1e-6`.
+
+### Button: Transformation Matrix (POSE)
+
+`inputdlg` four angles (degrees, default 0). Converts with `deg2rad`. Calls `forwardKinematics` (2-link + z). Shows the 4×4 in `TextArea` for 5 s. Then `loadrobot('puma560', 'DataFormat','row', 'Gravity',[0 0 -9.81])`, checks the first four joints against `Bodies{i}.Joint.PositionLimits`, pads `theta = [θ1 θ2 θ3 θ4 0 0]`, `show` in a figure named **SUMO_ROBO**.
+
+### Button: Forward Kinematics
+
+`loadrobot('puma560', …)` again. Four-angle dialog. Pads to 6 DOF. End-effector name **`link4`**. `getTransform` + `transl` for XYZ. `isSingular` is called but its `sprintf` results are **not assigned** (warnings unused). Displays X/Y/Z for 4 s. Figure name **SOMO**.
+
+### Button: Inverse Kinematics
+
+Dialog: X, Y, Z. Workspace checks (as coded):
+
+- Radial `r = hypot(x,y)` must satisfy **0.5 < r < 1** (metres).
+- `atan2d(y,x)` in **[−90, 90]** degrees.
+- **z ≥ 0**.
+
+Then `transl(desired) * troty(0)`, `robotics.InverseKinematics` on the Puma tree, weights `[1 1 1 0 0 0]`, seed `zeros(1,6)`, body **`link6`**. Prints six thetas in degrees. Figure **SOMO**.
+
+### Button: DH Table & Animation
+
+1. Shows a `uifigure` table (10 s) with the DH rows in the next section.
+2. `trplot` of `T0 = eye(4)` and `T1 = transl(1,2,3)*rpy2tr(0.6, 0.8, 1.4)`.
+3. 100-point semicircle in XY, radius 1, `theta = linspace(0, pi, 100)`.
+4. `timer` period **0.025 s** plots `transl(S(i,:)) * rpy2tr(0.6, 0.8, 1.4)` via nested `updateRobot`.
+
+The DH `uitable` (display-only, not wired to `SerialLink`) uses columns Joint, θ, d, a, α:
+
+| Joint | θ | d | a | α |
+|-------|---|---|---|---|
+| 1 | 0 | 0.2 | 0.5 | −90 |
+| 2 | 0 | 0 | 0.5 | 0 |
+| 3 | 0 | 0 | 0.5 | 0 |
+| 4 | 0 | 0.1 | 0 | −90 |
+| 5 | 0 | 0 | 0 | 90 |
+| 6 | 0 | 0 | 0 | 0 |
+
+### Exit
+
+`delete(app.UIFigure)`.
+
+---
+
+## Supporting PDFs and media
+
+| Path | Role |
+|------|------|
+| `Assignment #01/NEW_REPORT.pdf` | Written report |
+| `Assignment #01/Humanoid Robot Pitch Deck by Slidesgo.pptx` | Pitch deck (Slidesgo template) |
+| `Assignment #01/R2.jpg` | App background (also absolute-path `imread`) |
+| `Assignment #02/SEC.pdf` | Quintic assignment brief |
+| `WORK_SHOPS/Robotics Workshop 1 .pdf` | Workshop 1 |
+| `WORK_SHOPS/Workshop 2+3 Pose(2D,3D).pdf` | Pose 2D/3D |
+| `WORK_SHOPS/Week 6 - Workshop 4 - Complete Simulation.pdf` (+ `_2`) | Simulation write-up |
+| `WORK_SHOPS/robotics tool box manual.pdf` (+ `_2`) | Toolbox manuals |
+| `WORK_SHOPS/Tutorial Demo on ESP8266 - 1.pdf` … `- 3.pdf` | Hardware Wi-Fi module tutorials — **not** required to run the `.m` / `.mlapp` |
 
 ---
 
 ## How to run
 
-MATLAB R2020b+ recommended (App Designer). Toolbox: [Peter Corke Robotics Toolbox](https://petercorke.com/toolboxes/robotics-toolbox/).
+MATLAB with **App Designer** (R2020b+ recommended) and [Peter Corke Robotics Toolbox](https://petercorke.com/toolboxes/robotics-toolbox/). Puma callbacks also need **Robotics System Toolbox** (`loadrobot`, `getTransform`, `inverseKinematics`).
 
 ```matlab
-cd('WORK_SHOPS');  run('Robot_.m');
-cd('../Assignment #02');  run('ass1.m');
-cd('../Assignment #01');  appdesigner('assignment_app.mlapp');
+cd('WORK_SHOPS');
+run('Robot_.m');           % NAO_ROB teach pendant
+
+% After fixing the T = transl * rpy2tr line:
+run('ws#02.m');            % Puma qz + ikine6s
+
+cd('../Assignment #02');
+run('ass1.m');             % prints A^{-1} and coefficients
+
+cd('../Assignment #01');
+appdesigner('assignment_app.mlapp');
+% or: assignment_app
 ```
 
-ESP8266 PDFs are optional hardware labs, not required to run the `.m` / `.mlapp`.
+Fix `R2.jpg` to a relative path before running the app off the original `D:\University Data\...` machine.
+
+**Dependencies:** Corke Robotics Toolbox (`Link`, `SerialLink`, `mdl_puma560`, `ikine6s`, `trplot`, `transl`, `rpy2tr`); MATLAB Robotics System Toolbox (`loadrobot`, `getTransform`, `inverseKinematics`); App Designer for the UI.
 
 ---
 
-## Paths
+## Limitations
 
-Fix absolute `imread` before submission on another machine. Do not commit toolbox `PackageCache` junk.
+- App mixes a **2-link planar** pose helper with a **6-DOF Puma** visualiser; FK uses `link4`, IK uses `link6`.
+- Absolute `imread` path; `forwardKinematics_1` unused; singularity `sprintf` discarded.
+- `ws#02.m` line break will error until concatenated.
+- `ass1.m` “WHEN T=…” prints coefficients, not motion at t = 3 or 8.
+- ESP8266 PDFs are unrelated to the manipulator scripts.
+- Do not commit a full Toolbox `rvctools` tree.
 
 ---
 
 ## Author
 
-Robotics coursework · [rohaan2802](https://github.com/rohaan2802)
+**Mohammad Rohaan** · Roll **22I-2327** · [github.com/rohaan2802](https://github.com/rohaan2802)
