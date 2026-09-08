@@ -81,6 +81,46 @@ Peter Corke **Robotics Toolbox for MATLAB** `.mltbx` install dialog (dependency 
 
 ![Toolbox install](docs/screenshots/08-toolbox-install.png)
 
+### Assignment #02 — console I/O (`ass1.m`)
+
+Coding assignment is fully console-based: set boundary conditions, build \(A\mathbf{a}=\mathbf{b}\), print \(A^{-1}\) and quintic coefficients.
+
+**Inputs / boundary conditions** (\(t_0=3\), \(t_f=8\), rest≈0 → rest at \(\pi/2\)):
+
+![Ass2 inputs](docs/screenshots/23-ass2-console-inputs.png)
+
+**Matrix setup \(A\mathbf{a}=\mathbf{b}\):**
+
+![Ass2 matrix equation](docs/screenshots/29-ass2-matrix-equation.png)
+
+**Command Window run** (`run('ass1.m')`) — coefficients + the script’s `WHEN T=3/8` prints:
+
+![Ass2 console run](docs/screenshots/22-ass2-console-run.png)
+
+### Assignment #01 — App input / output panels
+
+App Designer buttons use `inputdlg` + a temporary `TextArea` for results (and `errordlg` for bad workspace).
+
+**POSE — sample angles 30°, 45°, 10°, 0°** (planar helper FK matrix shown in TextArea format):
+
+![Ass1 POSE TextArea](docs/screenshots/24-ass1-pose-textarea-output.png)
+
+**Forward kinematics — TextArea XYZ layout** (Puma `getTransform` needs MATLAB Online for live numbers):
+
+![Ass1 FK TextArea](docs/screenshots/25-ass1-fk-xyz-output.png)
+
+**Inverse kinematics — valid target** \(X=0.7,\ Y=0.2,\ Z=0.3\) (inside \(0.5&lt;r&lt;1\), \(z\ge 0\)):
+
+![Ass1 IK TextArea](docs/screenshots/26-ass1-ik-joint-output.png)
+
+**Inverse kinematics — workspace error** (radial limit fail):
+
+![Ass1 IK error](docs/screenshots/27-ass1-ik-workspace-error.png)
+
+**DH table** shown by the Animation button:
+
+![Ass1 DH table](docs/screenshots/28-ass1-dh-table-output.png)
+
 ---
 
 ## Problem and context
