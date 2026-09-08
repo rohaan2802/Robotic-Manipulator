@@ -308,6 +308,7 @@ Fix `R2.jpg` to a relative path before running the app off the original `D:\Univ
 - `ass1.m` “WHEN T=…” prints coefficients, not motion at t = 3 or 8.
 - ESP8266 PDFs are unrelated to the manipulator scripts.
 - Do not commit a full Toolbox `rvctools` tree.
+* README demo images: live per-button App Designer captures need MATLAB; gallery uses .mlapp UI, workshop PDFs, report figures, and a re-solved quintic.
 
 ---
 
