@@ -8,15 +8,78 @@ Robotics coursework: **Peter Corke Robotics Toolbox** workshops (`SerialLink` / 
 
 ## Table of contents
 
-1. [Problem and context](#problem-and-context)
-2. [Workshops — `Robot_.m`](#workshops--robot_m)
-3. [Workshop 2 — `ws#02.m` and `qz` / `qr`](#workshop-2--ws02m-and-qz--qr)
-4. [Assignment #02 — quintic (`ass1.m`)](#assignment-02--quintic-ass1m)
-5. [Assignment #01 — App Designer](#assignment-01--app-designer)
-6. [Supporting PDFs and media](#supporting-pdfs-and-media)
-7. [How to run](#how-to-run)
-8. [Limitations](#limitations)
-9. [Author](#author)
+1. [Screenshots / project demo](#screenshots--project-demo)
+2. [Problem and context](#problem-and-context)
+3. [Workshops — `Robot_.m`](#workshops--robot_m)
+4. [Workshop 2 — `ws#02.m` and `qz` / `qr`](#workshop-2--ws02m-and-qz--qr)
+5. [Assignment #02 — quintic (`ass1.m`)](#assignment-02--quintic-ass1m)
+6. [Assignment #01 — App Designer](#assignment-01--app-designer)
+7. [Supporting PDFs and media](#supporting-pdfs-and-media)
+8. [How to run](#how-to-run)
+9. [Limitations](#limitations)
+10. [Author](#author)
+
+---
+
+## Screenshots / project demo
+
+Demo visuals under [`docs/screenshots/`](docs/screenshots/) so you can skim the project without opening MATLAB first.
+
+> **Note:** This machine has **no MATLAB install**, so live App Designer / `teach` sessions could not be re-captured here. Screenshots below come from the packaged `.mlapp` UI asset, course workshop PDFs (real Toolbox figures), the assignment report, and a verified re-run of the quintic math from `ass1.m`.
+
+### App Designer — main menu
+
+`assignment_app.mlapp` home screen: pose, forward/inverse kinematics, DH table & animation, exit.
+
+![Robotic Arm Simulation app UI](docs/screenshots/04-matlab-app-ui.png)
+
+### App background / theme
+
+Industrial PCB pick-and-place image used as the app backdrop (`R2.jpg`).
+
+![App background](docs/screenshots/01-app-ui-background.jpg)
+
+### Quintic solve — Command Window style results
+
+Output of Assignment #02 (`ass1.m`): coefficients \(a_5 \ldots a_0\) for \(t_0=3\), \(t_f=8\), rest-to-rest motion ending near \(\pi/2\).
+
+![Quintic MATLAB output](docs/screenshots/02-quintic-matlab-command-window.png)
+
+### Quintic trajectory plots
+
+Position, velocity, and acceleration over \([3, 8]\) using those coefficients — smooth start/stop as expected for a quintic.
+
+![Quintic trajectory](docs/screenshots/03-quintic-trajectory.png)
+
+### Workspace reach animation (report)
+
+From `NEW_REPORT.pdf`: planar workspace reach plot (*Animation — reach every point of workspace*).
+
+![Workspace reach animation](docs/screenshots/04-workspace-reach-animation.png)
+
+### SerialLink + `fkine` / `teach` (workshop)
+
+2-link arm DH setup, forward kinematics matrix, and interactive teach pendant from the workshop slides.
+
+![Forward kinematics and teach](docs/screenshots/05-fk-or-ik-result.png)
+
+### Puma 560 simulation (workshop)
+
+Toolbox Puma 560 with `plot` / `teach` / `fkine`, plus base-transform example.
+
+![Puma 560 workshop simulation](docs/screenshots/06-workshop-simulation.png)
+
+### Pose / homogeneous transforms (workshop)
+
+`SE2` transform and `trplot2` frame visualization used in the pose labs.
+
+![Pose transforms](docs/screenshots/07-pose-transforms.png)
+
+### Toolbox install (workshop)
+
+Peter Corke **Robotics Toolbox for MATLAB** `.mltbx` install dialog (dependency for `SerialLink` workshops).
+
+![Toolbox install](docs/screenshots/08-toolbox-install.png)
 
 ---
 
@@ -25,6 +88,7 @@ Robotics coursework: **Peter Corke Robotics Toolbox** workshops (`SerialLink` / 
 Folder layout on GitHub:
 
 ```text
+docs/screenshots/   # README demo PNGs/JPGs
 Assignment #01/     # App Designer + report + pitch deck
 Assignment #02/     # Quintic polynomial (SEC.pdf + ass1.m)
 WORK_SHOPS/         # Toolbox labs, ESP8266 PDFs, pose PDFs
