@@ -109,7 +109,7 @@ App Designer buttons use `inputdlg` + a temporary `TextArea` for results (and `e
 
 ![Ass1 FK TextArea](docs/screenshots/25-ass1-fk-xyz-output.png)
 
-**Inverse kinematics — valid target** \(X=0.7,\ Y=0.2,\ Z=0.3\) (inside \(0.5&lt;r&lt;1\), \(z\ge 0\)):
+**Inverse kinematics — valid target** \(X=0.7,\ Y=0.2,\ Z=0.3\) (inside \(0.5 < r < 1\), \(z \ge 0\)):
 
 ![Ass1 IK TextArea](docs/screenshots/26-ass1-ik-joint-output.png)
 
