@@ -71,7 +71,7 @@ end
         function startupFcn(app)
        
      app.TextArea.Visible = 'off'; 
-    app.BackgroundImage = imread('D:\University Data\ALL SEMESTERS\3rd Semester\Robo Tech\Assignments\Assignment #01/R2.jpg');
+    app.BackgroundImage = imread(fullfile(fileparts(mfilename('fullpath')), 'R2.jpg'));
 app.UIAxes2.Position = [-90 -110 1700 1300]; 
     imshow(app.BackgroundImage, 'Parent', app.UIAxes2, 'InitialMagnification', 'fit');
 

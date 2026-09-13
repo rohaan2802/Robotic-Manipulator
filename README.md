@@ -243,13 +243,13 @@ Maximized figure, banner **Robotic Arm Simulation**. Five teal Cooper Black butt
 
 ### Startup
 
-`startupFcn` hides `TextArea`, `imread`s a **hard-coded** path:
+`startupFcn` hides `TextArea`, then loads the backdrop with a **portable** path next to the app:
 
-```text
-D:\University Data\ALL SEMESTERS\3rd Semester\Robo Tech\Assignments\Assignment #01/R2.jpg
+```matlab
+app.BackgroundImage = imread(fullfile(fileparts(mfilename('fullpath')), 'R2.jpg'));
 ```
 
-`R2.jpg` is also in the Assignment #01 folder on GitHub — change `imread` to a relative `fullfile` or the app errors on another PC. `UIAxes2.Position = [-90 -110 1700 1300]`.
+Keep `R2.jpg` in the same `Assignment #01` folder as `assignment_app.mlapp` (works after moving/cloning the repo). `UIAxes2.Position = [-90 -110 1700 1300]`.
 
 ### Helper methods
 
@@ -305,7 +305,7 @@ The DH `uitable` (display-only, not wired to `SerialLink`) uses columns Joint, �
 |------|------|
 | `Assignment #01/NEW_REPORT.pdf` | Written report |
 | `Assignment #01/Humanoid Robot Pitch Deck by Slidesgo.pptx` | Pitch deck (Slidesgo template) |
-| `Assignment #01/R2.jpg` | App background (also absolute-path `imread`) |
+| `Assignment #01/R2.jpg` | App background (loaded via `fullfile` + `mfilename`) |
 | `Assignment #02/SEC.pdf` | Quintic assignment brief |
 | `WORK_SHOPS/Robotics Workshop 1 .pdf` | Workshop 1 |
 | `WORK_SHOPS/Workshop 2+3 Pose(2D,3D).pdf` | Pose 2D/3D |
@@ -334,7 +334,7 @@ appdesigner('assignment_app.mlapp');
 % or: assignment_app
 ```
 
-Fix `R2.jpg` to a relative path before running the app off the original `D:\University Data\...` machine.
+`R2.jpg` stays beside `assignment_app.mlapp` in `Assignment #01` (portable `fullfile` path).
 
 **Dependencies:** Corke Robotics Toolbox (`Link`, `SerialLink`, `mdl_puma560`, `ikine6s`, `trplot`, `transl`, `rpy2tr`); MATLAB Robotics System Toolbox (`loadrobot`, `getTransform`, `inverseKinematics`); App Designer for the UI.
 
@@ -343,7 +343,7 @@ Fix `R2.jpg` to a relative path before running the app off the original `D:\Univ
 ## Limitations
 
 - App mixes a **2-link planar** pose helper with a **6-DOF Puma** visualiser; FK uses `link4`, IK uses `link6`.
-- Absolute `imread` path; `forwardKinematics_1` unused; singularity `sprintf` discarded.
+- `forwardKinematics_1` unused; singularity `sprintf` discarded.
 - `ws#02.m` line break will error until concatenated.
 - `ass1.m` “WHEN T=…” prints coefficients, not motion at t = 3 or 8.
 - ESP8266 PDFs are unrelated to the manipulator scripts.
