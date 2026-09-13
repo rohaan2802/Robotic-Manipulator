@@ -23,103 +23,127 @@ Robotics coursework: **Peter Corke Robotics Toolbox** workshops (`SerialLink` / 
 
 ## Screenshots / project demo
 
-Demo visuals under [`docs/screenshots/`](docs/screenshots/) so you can skim the project without opening MATLAB first.
+**20 live MATLAB captures** in [`docs/screenshots/`](docs/screenshots/) — Assignment #01, Assignment #02, and workshops, including real test-case runs (MATLAB R2024a + Corke Toolbox + Robotics System Toolbox).
 
-> **Note:** This machine has **no MATLAB install**, so live App Designer / `teach` sessions could not be re-captured here. Screenshots below come from the app UI asset, course workshop PDFs (real Toolbox figures), the assignment report, and a verified re-run of the quintic math from `ass1.m`.
+### 1. App background (`R2.jpg`)
 
-### App Designer — main menu
+Industrial PCB / pick-and-place theme used as the Assignment #01 app backdrop.
 
-`assignment_app.m` home screen: pose, forward/inverse kinematics, DH table & animation, exit.
+![01 App background](docs/screenshots/01-app-ui-background.jpg)
 
-![Robotic Arm Simulation app UI](docs/screenshots/04-matlab-app-ui.png)
+### 2. Assignment #02 — boundary inputs
 
-### App background / theme
+Test case: \(t_0=3\), \(t_f=8\), rest≈0 → rest at \(\pi/2\) (`ass1.m`).
 
-Industrial PCB pick-and-place image used as the app backdrop (`R2.jpg`).
+![02 Ass2 inputs](docs/screenshots/02-ass2-boundary-inputs.png)
 
-![App background](docs/screenshots/01-app-ui-background.jpg)
+### 3. Assignment #02 — matrix equation \(A\mathbf{a}=\mathbf{b}\)
 
-### Quintic solve — Command Window style results
+Vandermonde-style rows for position / velocity / acceleration at \(t_0\) and \(t_f\).
 
-Output of Assignment #02 (`ass1.m`): coefficients \(a_5 \ldots a_0\) for \(t_0=3\), \(t_f=8\), rest-to-rest motion ending near \(\pi/2\).
+![03 Ass2 matrix](docs/screenshots/03-ass2-matrix-equation.png)
 
-![Quintic MATLAB output](docs/screenshots/02-quintic-matlab-command-window.png)
+### 4. Assignment #02 — Command Window run
 
-### Quintic trajectory plots
+Live coefficients \(a_5\ldots a_0\) and the script’s `WHEN T=3/8` prints.
 
-Position, velocity, and acceleration over \([3, 8]\) using those coefficients — smooth start/stop as expected for a quintic.
+![04 Ass2 console](docs/screenshots/04-ass2-console-run.png)
 
-![Quintic trajectory](docs/screenshots/03-quintic-trajectory.png)
+### 5. Assignment #02 — quintic trajectory plots
 
-### Workspace reach animation (report)
+Position, velocity, and acceleration over \([3, 8]\) (smooth rest-to-rest motion).
 
-From `Report.pdf`: planar workspace reach plot (*Animation — reach every point of workspace*).
+![05 Quintic trajectory](docs/screenshots/05-ass2-quintic-trajectory.png)
 
-![Workspace reach animation](docs/screenshots/04-workspace-reach-animation.png)
+### 6. Assignment #01 — App Designer main UI
 
-### SerialLink + `fkine` / `teach` (workshop)
+`assignment_app` home: POSE, FK, IK, DH & Animation, Exit.
 
-2-link arm DH setup, forward kinematics matrix, and interactive teach pendant from the workshop slides.
+![06 App main UI](docs/screenshots/06-ass1-app-main-ui.png)
 
-![Forward kinematics and teach](docs/screenshots/05-fk-or-ik-result.png)
+### 7. Assignment #01 — POSE test case
 
-### Puma 560 simulation (workshop)
+Angles **30°, 45°, 10°, 0°** → planar helper 4×4 pose / XYZ.
 
-Toolbox Puma 560 with `plot` / `teach` / `fkine`, plus base-transform example.
+![07 POSE test](docs/screenshots/07-ass1-pose-test.png)
 
-![Puma 560 workshop simulation](docs/screenshots/06-workshop-simulation.png)
+### 8. Assignment #01 — IK workspace reject
 
-### Pose / homogeneous transforms (workshop)
+Target \((0.20, 0.10, 0.30)\) fails radial rule \(0.5 < r < 1\) (expected error).
 
-`SE2` transform and `trplot2` frame visualization used in the pose labs.
+![08 IK workspace error](docs/screenshots/08-ass1-ik-workspace-error.png)
 
-![Pose transforms](docs/screenshots/07-pose-transforms.png)
+### 9. Assignment #01 — IK workspace accept
 
-### Toolbox install (workshop)
+Target \((0.7, 0.2, 0.3)\) passes radial / angle / \(z\ge 0\) checks.
 
-Peter Corke **Robotics Toolbox for MATLAB** `.mltbx` install dialog (dependency for `SerialLink` workshops).
+![09 IK valid target](docs/screenshots/09-ass1-ik-valid-target.png)
 
-![Toolbox install](docs/screenshots/08-toolbox-install.png)
+### 10. Assignment #01 — FK XYZ output
 
-### Assignment #02 — console I/O (`ass1.m`)
+Joint test **[20 30 −15 10 0 0]°** → end-effector XYZ via `getTransform`.
 
-Coding assignment is fully console-based: set boundary conditions, build \(A\mathbf{a}=\mathbf{b}\), print \(A^{-1}\) and quintic coefficients.
+![10 FK XYZ](docs/screenshots/10-ass1-fk-xyz-output.png)
 
-**Inputs / boundary conditions** (\(t_0=3\), \(t_f=8\), rest≈0 → rest at \(\pi/2\)):
+### 11. Assignment #01 — FK robot figure
 
-![Ass2 inputs](docs/screenshots/23-ass2-console-inputs.png)
+Puma 560 `show` for the forward-kinematics test pose.
 
-**Matrix setup \(A\mathbf{a}=\mathbf{b}\):**
+![11 FK robot](docs/screenshots/11-ass1-fk-robot-figure.png)
 
-![Ass2 matrix equation](docs/screenshots/29-ass2-matrix-equation.png)
+### 12. Assignment #01 — IK joint solution
 
-**Command Window run** (`run('ass1.m')`) — coefficients + the script’s `WHEN T=3/8` prints:
+`inverseKinematics` solution for target \((0.7, 0.2, 0.3)\).
 
-![Ass2 console run](docs/screenshots/22-ass2-console-run.png)
+![12 IK joints](docs/screenshots/12-ass1-ik-joint-output.png)
 
-### Assignment #01 — App input / output panels
+### 13. Assignment #01 — IK robot figure
 
-App Designer buttons use `inputdlg` + a temporary `TextArea` for results (and `errordlg` for bad workspace).
+Puma 560 pose after the IK solve.
 
-**POSE — sample angles 30°, 45°, 10°, 0°** (planar helper FK matrix shown in TextArea format):
+![13 IK robot](docs/screenshots/13-ass1-ik-robot-figure.png)
 
-![Ass1 POSE TextArea](docs/screenshots/24-ass1-pose-textarea-output.png)
+### 14. Assignment #01 — DH table
 
-**Forward kinematics — TextArea XYZ layout** (Puma `getTransform` needs MATLAB Online for live numbers):
+Six-row DH parameters shown by the Animation button.
 
-![Ass1 FK TextArea](docs/screenshots/25-ass1-fk-xyz-output.png)
+![14 DH table](docs/screenshots/14-ass1-dh-table.png)
 
-**Inverse kinematics — valid target** \(X=0.7,\ Y=0.2,\ Z=0.3\) (inside \(0.5 < r < 1\), \(z \ge 0\)):
+### 15. Assignment #01 — workspace reach arc
 
-![Ass1 IK TextArea](docs/screenshots/26-ass1-ik-joint-output.png)
+Animation concept: semicircle reach in the plane (\(r=1\)).
 
-**Inverse kinematics — workspace error** (radial limit fail):
+![15 Workspace reach](docs/screenshots/15-ass1-workspace-reach.png)
 
-![Ass1 IK error](docs/screenshots/27-ass1-ik-workspace-error.png)
+### 16. Workshop — `Robot_.m` NAO_ROB plot
 
-**DH table** shown by the Animation button:
+Corke `SerialLink` arm at `plot([4, 0.3])` (prismatic + revolute).
 
-![Ass1 DH table](docs/screenshots/28-ass1-dh-table-output.png)
+![16 NAO plot](docs/screenshots/16-ws-nao-seriallink.png)
+
+### 17. Workshop — `Robot_.m` fkine
+
+`arm.fkine([4, 0.3])` → homogeneous \(T\) and XYZ.
+
+![17 NAO fkine](docs/screenshots/17-ws-nao-fkine.png)
+
+### 18. Workshop — `ws#02` Puma `plot(qz)`
+
+Toolbox Puma 560 at the zero / home configuration.
+
+![18 Puma qz](docs/screenshots/18-ws-puma-qz.png)
+
+### 19. Workshop — `ws#02` ikine6s test
+
+\(T=\mathrm{transl}(0.6,0.1,0)\,*\,\mathrm{rpy2tr}(0,180,0,\texttt{'deg'})\) → joint vector `q`.
+
+![19 ikine6s](docs/screenshots/19-ws-puma-ikine6s.png)
+
+### 20. Workshop — IK pose + `trplot(T)`
+
+Puma plotted at the IK solution with the desired frame drawn.
+
+![20 IK + trplot](docs/screenshots/20-ws-puma-ik-trplot.png)
 
 ---
 
@@ -347,7 +371,7 @@ assignment_app;              % runs the App Designer UI
 - `ass1.m` “WHEN T=…” prints coefficients, not motion at t = 3 or 8.
 - ESP8266 PDFs are unrelated to the manipulator scripts.
 - Do not commit a full Toolbox `rvctools` tree.
-* README demo images: live per-button App Designer captures need MATLAB; gallery uses app UI, workshop PDFs, report figures, and a re-solved quintic.
+- README gallery: **20** live captures regenerated with `docs/capture_screenshots.m` (re-run after code changes).
 
 ---
 
