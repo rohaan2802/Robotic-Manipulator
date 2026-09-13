@@ -25,11 +25,11 @@ Robotics coursework: **Peter Corke Robotics Toolbox** workshops (`SerialLink` / 
 
 Demo visuals under [`docs/screenshots/`](docs/screenshots/) so you can skim the project without opening MATLAB first.
 
-> **Note:** This machine has **no MATLAB install**, so live App Designer / `teach` sessions could not be re-captured here. Screenshots below come from the packaged `.mlapp` UI asset, course workshop PDFs (real Toolbox figures), the assignment report, and a verified re-run of the quintic math from `ass1.m`.
+> **Note:** This machine has **no MATLAB install**, so live App Designer / `teach` sessions could not be re-captured here. Screenshots below come from the app UI asset, course workshop PDFs (real Toolbox figures), the assignment report, and a verified re-run of the quintic math from `ass1.m`.
 
 ### App Designer — main menu
 
-`assignment_app.mlapp` home screen: pose, forward/inverse kinematics, DH table & animation, exit.
+`assignment_app.m` home screen: pose, forward/inverse kinematics, DH table & animation, exit.
 
 ![Robotic Arm Simulation app UI](docs/screenshots/04-matlab-app-ui.png)
 
@@ -132,7 +132,7 @@ docs/screenshots/   # README demo PNGs/JPGs
 Assignment #01/     # App Designer + report + pitch deck
 Assignment #02/     # Quintic polynomial (SEC.pdf + ass1.m)
 WORK_SHOPS/         # Toolbox labs, ESP8266 PDFs, pose PDFs
-assignment_app_1.txt  # Text export of the .mlapp
+assignment_app_1.txt  # Text copy of assignment_app.m
 ```
 
 Language (GitHub): MATLAB. Default branch: `main`. This working copy has `ass1.m`, `Robot_.m`, and `assignment_app_1.txt` at the folder root; nested paths above are the canonical tree.
@@ -233,7 +233,7 @@ Matching `A` rows: q(t0)=`q1`, q̇(t0)=`q2`, q̈(t0)=0, q(tf)=`s1`=π/2, q̇(tf)
 
 ## Assignment #01 — App Designer
 
-**`assignment_app.mlapp`** (export: `assignment_app_1.txt`). Class `assignment_app < matlab.apps.AppBase`. Window title **MATLAB App**, starts maximized. Banner textarea: **Robotic Arm Simulation** (Book Antiqua, cyan on dark).
+**`assignment_app.m`** (also mirrored in `assignment_app_1.txt`). Class `assignment_app < matlab.apps.AppBase`. Window title **MATLAB App**, starts maximized. Banner textarea: **Robotic Arm Simulation** (Book Antiqua, cyan on dark).
 
 ### UI (`createComponents`)
 
@@ -247,7 +247,7 @@ Maximized figure, banner **Robotic Arm Simulation**. Five teal Cooper Black butt
 app.BackgroundImage = imread(fullfile(fileparts(mfilename('fullpath')), 'R2.jpg'));
 ```
 
-Keep `R2.jpg` in the same `Assignment #01` folder as `assignment_app.mlapp` (works after moving/cloning the repo). `UIAxes2.Position = [-90 -110 1700 1300]`.
+Keep `R2.jpg` in the same `Assignment #01` folder as `assignment_app.m` (works after moving/cloning the repo). `UIAxes2.Position = [-90 -110 1700 1300]`.
 
 ### Helper methods
 
@@ -309,7 +309,7 @@ The DH `uitable` (display-only, not wired to `SerialLink`) uses columns Joint, �
 | `WORK_SHOPS/Workshop 2+3 Pose(2D,3D).pdf` | Pose 2D/3D |
 | `WORK_SHOPS/Week 6 - Workshop 4 - Complete Simulation.pdf` (+ `_2`) | Simulation write-up |
 | `WORK_SHOPS/robotics tool box manual.pdf` (+ `_2`) | Toolbox manuals |
-| `WORK_SHOPS/Tutorial Demo on ESP8266 - 1.pdf` … `- 3.pdf` | Hardware Wi-Fi module tutorials — **not** required to run the `.m` / `.mlapp` |
+| `WORK_SHOPS/Tutorial Demo on ESP8266 - 1.pdf` … `- 3.pdf` | Hardware Wi-Fi module tutorials — **not** required to run the `.m` app |
 
 ---
 
@@ -328,11 +328,12 @@ cd('../Assignment #02');
 run('ass1.m');             % prints A^{-1} and coefficients
 
 cd('../Assignment #01');
-appdesigner('assignment_app.mlapp');
-% or: assignment_app
+assignment_app;              % runs the App Designer UI
+% or edit in App Designer:
+% appdesigner('assignment_app.m');
 ```
 
-`R2.jpg` stays beside `assignment_app.mlapp` in `Assignment #01` (portable `fullfile` path).
+`R2.jpg` stays beside `assignment_app.m` in `Assignment #01` (portable `fullfile` path).
 
 **Dependencies:** Corke Robotics Toolbox (`Link`, `SerialLink`, `mdl_puma560`, `ikine6s`, `trplot`, `transl`, `rpy2tr`); MATLAB Robotics System Toolbox (`loadrobot`, `getTransform`, `inverseKinematics`); App Designer for the UI.
 
@@ -346,7 +347,7 @@ appdesigner('assignment_app.mlapp');
 - `ass1.m` “WHEN T=…” prints coefficients, not motion at t = 3 or 8.
 - ESP8266 PDFs are unrelated to the manipulator scripts.
 - Do not commit a full Toolbox `rvctools` tree.
-* README demo images: live per-button App Designer captures need MATLAB; gallery uses .mlapp UI, workshop PDFs, report figures, and a re-solved quintic.
+* README demo images: live per-button App Designer captures need MATLAB; gallery uses app UI, workshop PDFs, report figures, and a re-solved quintic.
 
 ---
 
