@@ -71,7 +71,17 @@ end
         function startupFcn(app)
        
      app.TextArea.Visible = 'off'; 
-    app.BackgroundImage = imread(fullfile(fileparts(mfilename('fullpath')), 'R2.jpg'));
+    % Load backdrop from the same folder as this app (portable)
+    appDir = fileparts(mfilename('fullpath'));
+    imgFile = fullfile(appDir, 'R2.jpg');
+    if exist(imgFile, 'file') ~= 2
+        imgFile = fullfile(pwd, 'R2.jpg');
+    end
+    if exist(imgFile, 'file') ~= 2
+        errordlg('R2.jpg not found. Keep it next to assignment_app.m in Assignment #01.', 'Missing Image');
+        return;
+    end
+    app.BackgroundImage = imread(imgFile);
 app.UIAxes2.Position = [-90 -110 1700 1300]; 
     imshow(app.BackgroundImage, 'Parent', app.UIAxes2, 'InitialMagnification', 'fit');
 
