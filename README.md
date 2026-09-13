@@ -53,7 +53,7 @@ Position, velocity, and acceleration over \([3, 8]\) using those coefficients â€
 
 ### Workspace reach animation (report)
 
-From `NEW_REPORT.pdf`: planar workspace reach plot (*Animation â€” reach every point of workspace*).
+From `Report.pdf`: planar workspace reach plot (*Animation â€” reach every point of workspace*).
 
 ![Workspace reach animation](docs/screenshots/04-workspace-reach-animation.png)
 
@@ -136,8 +136,6 @@ assignment_app_1.txt  # Text export of the .mlapp
 ```
 
 Language (GitHub): MATLAB. Default branch: `main`. This working copy has `ass1.m`, `Robot_.m`, and `assignment_app_1.txt` at the folder root; nested paths above are the canonical tree.
-
-`input_values.m` exists under Assignment #01 but fetched as **empty**.
 
 ---
 
@@ -303,7 +301,7 @@ The DH `uitable` (display-only, not wired to `SerialLink`) uses columns Joint, Î
 
 | Path | Role |
 |------|------|
-| `Assignment #01/NEW_REPORT.pdf` | Written report |
+| `Assignment #01/Report.pdf` | Written report |
 | `Assignment #01/Humanoid Robot Pitch Deck by Slidesgo.pptx` | Pitch deck (Slidesgo template) |
 | `Assignment #01/R2.jpg` | App background (loaded via `fullfile` + `mfilename`) |
 | `Assignment #02/SEC.pdf` | Quintic assignment brief |
