@@ -23,7 +23,7 @@ Robotics coursework: **Peter Corke Robotics Toolbox** workshops (`SerialLink` / 
 
 ## Screenshots / project demo
 
-**20 live MATLAB captures** in [`docs/screenshots/`](docs/screenshots/) — Assignment #01, Assignment #02, and workshops, including real test-case runs (MATLAB R2024a + Corke Toolbox + Robotics System Toolbox).
+**25 live MATLAB captures** in [`docs/screenshots/`](docs/screenshots/) — Assignment #01, Assignment #02, and workshops, including real test-case runs plus **GUI robot poses / animation / joint-limit** shots (MATLAB R2024a + Corke Toolbox + Robotics System Toolbox).
 
 ### 1. App background (`R2.jpg`)
 
@@ -144,6 +144,36 @@ Toolbox Puma 560 at the zero / home configuration.
 Puma plotted at the IK solution with the desired frame drawn.
 
 ![20 IK + trplot](docs/screenshots/20-ws-puma-ik-trplot.png)
+
+### 21. GUI — joint rotation limits
+
+Puma 560 min/max joint limits (Ass1 POSE / FK checks) with a mid-range arm pose inside those limits.
+
+![21 Joint rotation limits](docs/screenshots/21-gui-joint-rotation-limits.png)
+
+### 22. GUI — animation keyframes
+
+Four workspace-reach frames (start → end) showing arm positions during Ass1-style animation.
+
+![22 Animation keyframes](docs/screenshots/22-gui-animation-keyframes.png)
+
+### 23. GUI — animation path mid-frame
+
+End-effector arc (magenta) with the robot frozen mid-animation; green = start, red = end.
+
+![23 Animation path](docs/screenshots/23-gui-animation-path-midframe.png)
+
+### 24. GUI — robot arm positions
+
+Home, ready, reach, and folded poses used across demo / animation.
+
+![24 Arm positions](docs/screenshots/24-gui-arm-positions-grid.png)
+
+### 25. GUI — NAO animation + rotation limits
+
+Workshop `NAO_ROB` mid-motion with prismatic stroke limits and revolute \(q_2\in[-\pi,\pi]\) annotated.
+
+![25 NAO animation limits](docs/screenshots/25-gui-nao-animation-limits.png)
 
 ---
 
@@ -371,7 +401,7 @@ assignment_app;              % runs the App Designer UI
 - `ass1.m` “WHEN T=…” prints coefficients, not motion at t = 3 or 8.
 - ESP8266 PDFs are unrelated to the manipulator scripts.
 - Do not commit a full Toolbox `rvctools` tree.
-- README gallery: **20** live captures regenerated with `docs/capture_screenshots.m` (re-run after code changes).
+- README gallery: **25** live captures (`docs/capture_screenshots.m` + `docs/capture_gui5.m`; re-run after code changes).
 
 ---
 
