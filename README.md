@@ -21,10 +21,11 @@ Robotics coursework for a **6-DOF Puma-style arm** and a **2-DOF prismatic–rev
 9. [Assignment #01 — App Designer](#assignment-01--app-designer)
 10. [Test cases](#test-cases)
 11. [Supporting PDFs and media](#supporting-pdfs-and-media)
-12. [How to run](#how-to-run)
-13. [Regenerating screenshots](#regenerating-screenshots)
-14. [Limitations](#limitations)
-15. [Author](#author)
+12. [Course assignment briefs (docs/)](#course-assignment-briefs-docs)
+13. [How to run](#how-to-run)
+14. [Regenerating screenshots](#regenerating-screenshots)
+15. [Limitations](#limitations)
+16. [Author](#author)
 
 ---
 
@@ -243,9 +244,14 @@ Robotic-Manipulator/
 │   ├── qz and qr.txt             # student notes
 │   └── *.pdf                     # workshop / toolbox / ESP8266 handouts
 └── docs/
-    ├── capture_screenshots.m     # regenerate shots 01–20
-    ├── capture_gui5.m            # regenerate shots 21–25
-    └── screenshots/              # README gallery PNGs/JPGs + quintic_results.txt
+    ├── Robotics - Assignment 1.pdf   # official course brief (Ass1)
+    ├── Robotics - Assignment 2.pdf   # official course brief (Ass2)
+    ├── Robotics - Assignment 4.pdf   # official course brief (Ass4)
+    ├── A2 Robotics.pdf               # official A2 Robotics PDF
+    ├── A4 Robotics.pdf               # official A4 Robotics PDF
+    ├── capture_screenshots.m         # regenerate shots 01–20
+    ├── capture_gui5.m                # regenerate shots 21–25
+    └── screenshots/                  # README gallery PNGs/JPGs + quintic_results.txt
 ```
 
 ---
@@ -572,17 +578,35 @@ p560.plot(q)
 
 ## Supporting PDFs and media
 
+Reports, workshop handouts, and media that ship with the coursework folders. **Official course assignment PDFs** were also uploaded under [`docs/`](docs/) — see [Course assignment briefs (docs/)](#course-assignment-briefs-docs).
+
 | Path | Role |
 |------|------|
 | `Assignment #01/Report.pdf` | Written report |
 | `Assignment #01/Humanoid Robot Pitch Deck by Slidesgo.pptx` | Pitch deck (Slidesgo template) |
 | `Assignment #01/R2.jpg` | App background (portable `fullfile` + `mfilename`) |
-| `Assignment #02/SEC.pdf` | Quintic assignment brief |
+| `Assignment #02/SEC.pdf` | Quintic assignment brief (course folder copy) |
 | `WORK_SHOPS/Robotics Workshop 1 .pdf` | Workshop 1 |
 | `WORK_SHOPS/Workshop 2+3 Pose(2D,3D).pdf` | Pose 2D/3D |
 | `WORK_SHOPS/Week 6 - Workshop 4 - Complete Simulation.pdf` (+ `_2`) | Simulation write-up |
 | `WORK_SHOPS/robotics tool box manual.pdf` (+ `_2`) | Toolbox manuals |
 | `WORK_SHOPS/Tutorial Demo on ESP8266 - 1.pdf` … `- 3.pdf` | Hardware Wi-Fi tutorials — **not** required for the `.m` app |
+
+---
+
+## Course assignment briefs (docs/)
+
+These five files are the **official course assignment PDFs**, uploaded directly to GitHub under [`docs/`](docs/) on `main`:
+
+| File | Link |
+|------|------|
+| Robotics — Assignment 1 | [`docs/Robotics - Assignment 1.pdf`](docs/Robotics%20-%20Assignment%201.pdf) |
+| Robotics — Assignment 2 | [`docs/Robotics - Assignment 2.pdf`](docs/Robotics%20-%20Assignment%202.pdf) |
+| Robotics — Assignment 4 | [`docs/Robotics - Assignment 4.pdf`](docs/Robotics%20-%20Assignment%204.pdf) |
+| A2 Robotics | [`docs/A2 Robotics.pdf`](docs/A2%20Robotics.pdf) |
+| A4 Robotics | [`docs/A4 Robotics.pdf`](docs/A4%20Robotics.pdf) |
+
+Use these as the authoritative briefs for the matching MATLAB work in `Assignment #01/`, `Assignment #02/`, and related coursework.
 
 ---
 
